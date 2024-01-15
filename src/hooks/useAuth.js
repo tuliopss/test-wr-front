@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
 import useFlashMessage from "./useFlashMessage";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const { setFlashMessage } = useFlashMessage();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,7 +29,7 @@ export default function useAuth() {
 
       await authUser(data);
     } catch (error) {
-      msgText = response.data.errors[0];
+      msgText = error.response.data.errors[0];
       msgType = "error";
     }
 
@@ -59,8 +58,7 @@ export default function useAuth() {
     setAuthenticated(true);
 
     localStorage.setItem("token", JSON.stringify(data.token));
-
-    navigate("/dashboard");
+    redirect("/");
   };
 
   return { register, login };

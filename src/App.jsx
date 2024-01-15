@@ -9,12 +9,14 @@ import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import { UserProvider } from "../context/UserContext";
+import Message from "./components/layouts/Message";
 
 function App() {
   return (
     <UserProvider>
       <BrowserRouter>
         <Navbar />
+        <Message />
         <Container>
           {/* <h1>APP</h1> */}
           <Routes>
