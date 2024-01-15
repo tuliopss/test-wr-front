@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./App.css";
 import Container from "./components/layouts/Container";
@@ -8,9 +8,10 @@ import Teste from "./components/Teste";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import { UserProvider } from "../context/UserContext";
+import { Context, UserProvider } from "../context/UserContext";
 import Message from "./components/layouts/Message";
 import Login from "./components/Login";
+import EmploeeDetails from "./components/EmploeeDetails";
 
 function App() {
   return (
@@ -22,8 +23,10 @@ function App() {
           {/* <h1>APP</h1> */}
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/teste' element={<Teste />} />
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/employee/:id' element={<EmploeeDetails />} />
+
+            <Route path='/teste' element={<Teste />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
           </Routes>

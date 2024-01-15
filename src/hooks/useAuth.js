@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
 import useFlashMessage from "./useFlashMessage";
-import { redirect } from "react-router-dom";
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -60,5 +59,19 @@ export default function useAuth() {
     localStorage.setItem("token", JSON.stringify(data.token));
   };
 
-  return { register, login };
+  const logout = async () => {
+    const msgText = "Logout realizado com sucesso! Volte em breve!";
+    const msgType = "success";
+
+    setAuthenticated(false);
+
+    localStorage.removeItem("token");
+
+    api.defaults.headers.authorization = undefined;
+
+    setFlashMessage(msgText, msgType);
+    navigate("/");
+  };
+
+  return { register, login, logout, authenticated };
 }

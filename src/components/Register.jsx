@@ -8,14 +8,24 @@ const Register = () => {
   const navigate = useNavigate();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    // console.log({ ...user, [e.target.name]: e.target.value });
+    console.log(user.permission);
+  };
+
+  const handlePermission = (e) => {
+    if (e.target.value == "on") {
+      user.permission = true;
+    } else {
+      user.permission = false;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await register(user);
-
-    navigate("/dashboard");
+    if (await register(user)) {
+      navigate("/dashboard");
+    }
   };
   return (
     <section>
@@ -23,12 +33,12 @@ const Register = () => {
 
       <form onSubmit={handleSubmit}>
         <div className={styles.form_control}>
-          <label htmlFor=''>Nome:</label>
+          <label>Nome:</label>
           <input type='text' name='name' onChange={handleChange} />
         </div>
 
         <div className={styles.form_control}>
-          <label htmlFor=''>Email:</label>
+          <label>Email:</label>
           <input type='email' name='email' onChange={handleChange} />
         </div>
 
@@ -56,6 +66,15 @@ const Register = () => {
             type='password'
             name='confirmPassword'
             onChange={handleChange}
+          />
+        </div>
+        <div className={styles.form_control}>
+          <label>Deseja se cadastrar como administrador?:</label>
+          <input
+            type='checkbox'
+            name='permission'
+            onChange={handlePermission}
+            // onClick={handlePermission}
           />
         </div>
 

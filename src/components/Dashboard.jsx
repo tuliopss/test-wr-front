@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from "../../utils/api";
 import styles from "./Dashboard.module.css";
-
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
 
-  const getEmployees = async () => {
+  const getEmployees = () => {
     api.get("/employee").then((response) => {
       setEmployees(response.data);
       console.log(response.data);
@@ -15,12 +15,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     // getEmployees();
-    api.get("/employee").then((response) => {
-      setEmployees(response.data);
-      console.log(response.data);
-      console.log("e", employees), [];
-    });
-  });
+    getEmployees();
+  }, []);
   return (
     <>
       <div className={styles.dash}>
@@ -31,8 +27,16 @@ const Dashboard = () => {
         {employees.length > 0 &&
           employees.map((emp) => (
             <div className={styles.emp_card} key={emp._id}>
-              <h3>{emp.name}</h3>
-              <span>{emp.role}</span>
+              <div className={styles.emp_info}>
+                <span>Nome</span>
+                <span>{emp.name}</span>
+              </div>
+
+              <div className={styles.actions}>
+                <button>Editar</button>
+                <button>Excluir</button>
+                <Link to={`/employee/${emp._id}`}>Ver mais</Link>
+              </div>
             </div>
           ))}
         {employees.length == 0 && <p>Sem funcionários cadastrados.</p>}
