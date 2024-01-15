@@ -1,0 +1,27 @@
+## docker compose
+
+version: "3.7"
+
+services:
+  front:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: front-test
+    ports:
+      - 5173:5173
+    volumes:
+      - .:/home/testtec/front
+# front-bookhub:
+# build: .
+# entrypoint: sh ./.docker/entrypoint.sh
+# container_name: front-testtec
+# volumes:
+
+# - .:/usr/front-bookhub/app
+#   working_dir: /usr/front-bookhub/app
+#   ports:
+# - 5173:5173
+#   restart: always
+#   tty: true
+#   environment:
+# - CHOKIDAR_USEPOLLING=true
