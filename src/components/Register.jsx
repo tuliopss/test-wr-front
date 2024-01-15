@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./Form.module.css";
+import { Context } from "../../context/UserContext";
 const Register = () => {
   const [user, setUser] = useState({});
-
+  const { register } = useContext(Context);
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // await register(user)
+    await register(user);
   };
   return (
     <section>
       <h1>Registre-se!</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.form_control}>
           <label htmlFor=''>Nome:</label>
           <input type='text' name='name' />
