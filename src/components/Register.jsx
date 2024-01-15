@@ -1,6 +1,17 @@
-import React from "react";
+import { useState } from "react";
 import styles from "./Form.module.css";
 const Register = () => {
+  const [user, setUser] = useState({});
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // await register(user)
+  };
   return (
     <section>
       <h1>Registre-se!</h1>
