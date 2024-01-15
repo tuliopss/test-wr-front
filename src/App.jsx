@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import { UserProvider } from "../context/UserContext";
 import Message from "./components/layouts/Message";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path='/teste' element={<Teste />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
           </Routes>
         </Container>
       </BrowserRouter>

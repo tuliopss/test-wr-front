@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import styles from "./Form.module.css";
 import { Context } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [user, setUser] = useState({});
   const { register } = useContext(Context);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -12,6 +14,8 @@ const Register = () => {
     e.preventDefault();
 
     await register(user);
+
+    navigate("/dashboard");
   };
   return (
     <section>

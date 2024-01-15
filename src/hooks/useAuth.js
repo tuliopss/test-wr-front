@@ -47,7 +47,7 @@ export default function useAuth() {
 
       await authUser(data);
     } catch (error) {
-      msgText = response.data.errors[0];
+      msgText = error.response.data.errors[0];
       msgType = "error";
     }
 
@@ -58,7 +58,6 @@ export default function useAuth() {
     setAuthenticated(true);
 
     localStorage.setItem("token", JSON.stringify(data.token));
-    redirect("/");
   };
 
   return { register, login };
