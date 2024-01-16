@@ -7,11 +7,10 @@ const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
   const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
-  const getEmployees = () => {
-    api.get("/employee").then((response) => {
+
+  const getEmployees = async () => {
+    await api.get("/employee").then((response) => {
       setEmployees(response.data);
-      console.log(response.data);
-      console.log("e", employees);
     });
   };
 
@@ -47,6 +46,9 @@ const Dashboard = () => {
     <>
       <div className={styles.dash}>
         <h2>Dashboard</h2>
+        <Link to='/create'>
+          <button>Registrar novo funcionário</button>
+        </Link>
       </div>
 
       <div className={styles.employees_container}>
@@ -59,7 +61,8 @@ const Dashboard = () => {
               </div>
 
               <div className={styles.actions}>
-                <button>Editar</button>
+                <Link to={`/edit/${emp._id}`}>Editar</Link>
+
                 <button
                   onClick={() => {
                     deleteEmployee(emp._id);

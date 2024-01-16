@@ -12,6 +12,7 @@ import { Context, UserProvider } from "../context/UserContext";
 import Message from "./components/layouts/Message";
 import Login from "./components/Login";
 import EmploeeDetails from "./components/EmploeeDetails";
+import EditEmployee from "./components/EditEmployee";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/edit/:id' element={<EditEmployee />} />
             <Route path='/employee/:id' element={<EmploeeDetails />} />
 
             <Route path='/teste' element={<Teste />} />

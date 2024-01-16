@@ -1,0 +1,127 @@
+import React, { useEffect, useState } from "react";
+import api from "../../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
+
+// import styles from "./AddTurma.module.css";
+import useFlashMessage from "../hooks/useFlashMessage";
+
+const EditEmployee = () => {
+  const { id } = useParams();
+  const [employee, setEmployee] = useState({});
+  const { setFlashMessage } = useFlashMessage();
+  const navigate = useNavigate();
+  const [token] = useState(localStorage.getItem("token") || "");
+
+  const getEmployee = async () => {
+    await api
+      .get(`/employee/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setEmployee(response.data);
+      });
+  };
+
+  useEffect(() => {
+    getEmployee();
+  }, [token, id]);
+
+  const editEmployee = async (emp) => {
+    let msgType = "success";
+    let msgText = "Funcionário editado com sucesso.";
+
+    try {
+      await api
+        .patch(`/employee/edit/${id}`, emp, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
+          },
+        })
+        .then((response) => {
+          return response.data;
+        });
+      setFlashMessage(msgText, msgType);
+      navigate("/dashboard");
+    } catch (error) {
+      msgType = "error";
+      msgText = error.response.data.errors[0];
+
+      setFlashMessage(msgText, msgType);
+    }
+  };
+
+  const handleChange = (e) => {
+    setEmployee({ ...employee, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editEmployee(employee);
+  };
+
+  //className={FormStyles.form_container}
+  return (
+    <>
+      <h2>Edite as informações do funcionário</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='name'>Nome do funcionário</label>
+          <input
+            className='input'
+            type='text'
+            name='name'
+            placeholder='Nome'
+            value={employee.name}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor='email'>Email do funcionário</label>
+          <input
+            className='input'
+            type='email'
+            name='email'
+            placeholder='Email do funcionário'
+            value={employee.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor='cpf'>CPF do funcionário</label>
+          <input
+            disabled
+            className='input'
+            type='text'
+            name='cpf'
+            placeholder='CPF do funcionário'
+            value={employee.cpf}
+          />
+        </div>
+
+        <div>
+          <label htmlFor='role'>Função do funcionário</label>
+          <input
+            className='input'
+            type='text'
+            name='role'
+            placeholder='Função do funcionário'
+            min={2}
+            value={employee.role}
+            onChange={handleChange}
+          />
+        </div>
+        <input
+          // className={styles.btn_submit_form}
+          type='submit'
+          value='Editar'
+        />
+      </form>
+    </>
+  );
+};
+
+export default EditEmployee;
