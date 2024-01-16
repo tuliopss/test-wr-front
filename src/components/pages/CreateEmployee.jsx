@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 
-// import styles from "./AddTurma.module.css";
+import styles from "./Form.module.css";
 import useFlashMessage from "../../hooks/useFlashMessage";
 
 const CreateEmployee = () => {
@@ -49,8 +49,8 @@ const CreateEmployee = () => {
   return (
     <>
       <h2>Insira as informações do funcionário</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className={styles.form_container}>
+        <div className={styles.form_control}>
           <label htmlFor='name'>Nome do funcionário</label>
           <input
             className='input'
@@ -61,7 +61,7 @@ const CreateEmployee = () => {
           />
         </div>
 
-        <div>
+        <div className={styles.form_control}>
           <label htmlFor='email'>Email do funcionário</label>
           <input
             className='input'
@@ -72,7 +72,7 @@ const CreateEmployee = () => {
           />
         </div>
 
-        <div>
+        <div className={styles.form_control}>
           <label htmlFor='cpf'>CPF do funcionário</label>
           <input
             className='input'
@@ -84,7 +84,7 @@ const CreateEmployee = () => {
           />
         </div>
 
-        <div>
+        <div className={styles.form_control}>
           <label htmlFor='role'>Função do funcionário</label>
           <input
             className='input'

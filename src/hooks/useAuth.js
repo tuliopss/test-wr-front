@@ -70,8 +70,8 @@ export default function useAuth() {
     api.defaults.headers.authorization = undefined;
 
     setFlashMessage(msgText, msgType);
-    navigate("/");
+    // navigate("/");
   };
-
-  return { register, login, logout, authenticated };
+  console.log(authenticated, "auth");
+  return { authenticated, register, login, logout };
 }

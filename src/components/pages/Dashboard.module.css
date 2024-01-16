@@ -1,3 +1,31 @@
+.dashboard_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard_header h1 {
+  margin: 0;
+}
+
+.dashboard_header a {
+  text-decoration: none;
+  background-color: #25b456;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+  border: 1px solid #25b456;
+  height: 50%;
+}
+
+.dashboard_header a:hover {
+  background-color: #258a48;
+  color: #fff;
+}
+
 .employees_container {
   display: flex;
   justify-content: flex-start;
@@ -20,11 +48,3 @@
   width: 100%;
   justify-content: space-between;
 }
-
-.emp_info span {
-  display: flex;
-  align-items: center;
-}
-/* .emp_info {
-  background-color: red;
-} */

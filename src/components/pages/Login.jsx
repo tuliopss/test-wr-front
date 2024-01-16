@@ -13,22 +13,33 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(user);
-    navigate("/dashboard");
+    if (await login(user)) {
+      navigate("/dashboard");
+    }
   };
   return (
     <section>
       <h1>Login!</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form_container}>
         <div className={styles.form_control}>
           <label htmlFor=''>Email:</label>
-          <input type='email' name='email' onChange={handleChange} />
+          <input
+            type='email'
+            name='email'
+            placeholder='Digite seu email'
+            onChange={handleChange}
+          />
         </div>
 
         <div className={styles.form_control}>
           <label htmlFor=''>Senha:</label>
-          <input type='password' name='password' onChange={handleChange} />
+          <input
+            type='password'
+            name='password'
+            placeholder='Digite sua senha'
+            onChange={handleChange}
+          />
         </div>
 
         <input type='submit' value='Entrar' />

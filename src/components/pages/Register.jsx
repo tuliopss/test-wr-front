@@ -4,20 +4,28 @@ import { Context } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [user, setUser] = useState({});
+  const [permission, setPermission] = useState(false);
   const { register } = useContext(Context);
   const navigate = useNavigate();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     // console.log({ ...user, [e.target.name]: e.target.value });
-    console.log(user.permission);
+    console.log(user);
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    if (isChecked) {
+      console.log("Checkbox selecionado, valor: true");
+    } else {
+      console.log("Checkbox não selecionado, valor: false");
+    }
   };
 
   const handlePermission = (e) => {
-    if (e.target.value == "on") {
-      user.permission = true;
-    } else {
-      user.permission = false;
-    }
+    // console.log(e.target.value);
+    setUser({ ...user, permission: e.target.value });
+    console.log(user);
   };
 
   const handleSubmit = async (e) => {
@@ -26,12 +34,13 @@ const Register = () => {
     if (await register(user)) {
       navigate("/dashboard");
     }
+    console.log(user);
   };
   return (
     <section>
       <h1>Registre-se!</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form_container}>
         <div className={styles.form_control}>
           <label>Nome:</label>
           <input type='text' name='name' onChange={handleChange} />
@@ -68,13 +77,13 @@ const Register = () => {
             onChange={handleChange}
           />
         </div>
-        <div className={styles.form_control}>
+        <div className={styles.form_control_check}>
           <label>Deseja se cadastrar como administrador?:</label>
           <input
             type='checkbox'
             name='permission'
+            // checked={user.permission}
             onChange={handlePermission}
-            // onClick={handlePermission}
           />
         </div>
 

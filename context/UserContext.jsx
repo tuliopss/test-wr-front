@@ -5,7 +5,7 @@ const Context = createContext();
 
 const UserProvider = ({ children }) => {
   const { authenticated, register, login, logout } = useAuth();
-
+  console.log(authenticated, "PROVIDER");
   return (
     <Context.Provider value={{ authenticated, register, login, logout }}>
       {children}

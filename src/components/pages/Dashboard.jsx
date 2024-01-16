@@ -9,9 +9,15 @@ const Dashboard = () => {
   const { setFlashMessage } = useFlashMessage();
 
   const getEmployees = async () => {
-    await api.get("/employee").then((response) => {
-      setEmployees(response.data);
-    });
+    await api
+      .get("/employee", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setEmployees(response.data);
+      });
   };
 
   const deleteEmployee = async (id) => {
@@ -41,36 +47,37 @@ const Dashboard = () => {
   useEffect(() => {
     // getEmployees();
     getEmployees();
-  }, []);
+  }, [token]);
   return (
     <>
-      <div className={styles.dash}>
-        <h2>Dashboard</h2>
-        <Link to='/create'>
-          <button>Registrar novo funcionário</button>
-        </Link>
-      </div>
+      <header className={styles.dashboard_header}>
+        <h2>Funcionários registrados</h2>
+        <Link to='/create'>Registrar novo funcionário</Link>
+      </header>
 
       <div className={styles.employees_container}>
         {employees.length > 0 &&
           employees.map((emp) => (
             <div className={styles.emp_card} key={emp._id}>
+              <h3>Nome:</h3>
+              <h3>Função:</h3>
               <div className={styles.emp_info}>
-                <span>Nome</span>
-                <span>{emp.name}</span>
+                <span>{emp.name}</span> - <span>{emp.role}</span>
               </div>
 
-              <div className={styles.actions}>
-                <Link to={`/edit/${emp._id}`}>Editar</Link>
+              {emp.permission && (
+                <div className={styles.actions}>
+                  <Link to={`/edit/${emp._id}`}>Editar</Link>
 
-                <button
-                  onClick={() => {
-                    deleteEmployee(emp._id);
-                  }}>
-                  Excluir
-                </button>
-                <Link to={`/employee/${emp._id}`}>Ver mais</Link>
-              </div>
+                  <button
+                    onClick={() => {
+                      deleteEmployee(emp._id);
+                    }}>
+                    Excluir
+                  </button>
+                  <Link to={`/employee/${emp._id}`}>Ver mais</Link>
+                </div>
+              )}
             </div>
           ))}
         {employees.length == 0 && <p>Sem funcionários cadastrados.</p>}

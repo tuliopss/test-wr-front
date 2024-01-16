@@ -6,11 +6,19 @@ import { useParams } from "react-router-dom";
 const EmploeeDetails = () => {
   const [employee, setEmployee] = useState({});
   const { id } = useParams();
+  const [token] = useState(localStorage.getItem("token") || "");
 
   const getEmployeeById = () => {
-    api.get(`/employee/${id}`).then((response) => {
-      setEmployee(response.data);
-    });
+    api
+      .get(`/employee/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setEmployee(response.data);
+        console.log(employee);
+      });
   };
 
   useEffect(() => {
