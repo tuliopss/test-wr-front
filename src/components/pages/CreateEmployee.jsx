@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import api from "../../utils/api";
+import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 // import styles from "./AddTurma.module.css";
-import useFlashMessage from "../hooks/useFlashMessage";
+import useFlashMessage from "../../hooks/useFlashMessage";
 
 const CreateEmployee = () => {
   const { id } = useParams();

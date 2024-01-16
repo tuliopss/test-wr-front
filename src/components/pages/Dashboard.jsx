@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import api from "../../utils/api";
+import api from "../../../utils/api";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
-import useFlashMessage from "../hooks/useFlashMessage";
+import useFlashMessage from "../../hooks/useFlashMessage";
 const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
   const [token] = useState(localStorage.getItem("token"));
