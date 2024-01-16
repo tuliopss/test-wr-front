@@ -5,36 +5,20 @@ import { useNavigate, useParams } from "react-router-dom";
 // import styles from "./AddTurma.module.css";
 import useFlashMessage from "../hooks/useFlashMessage";
 
-const EditEmployee = () => {
+const CreateEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState({});
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
   const [token] = useState(localStorage.getItem("token") || "");
 
-  const getEmployee = async () => {
-    await api
-      .get(`/employee/${id}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token)}`,
-        },
-      })
-      .then((response) => {
-        setEmployee(response.data);
-      });
-  };
-
-  useEffect(() => {
-    getEmployee();
-  }, [token, id]);
-
-  const editEmployee = async (emp) => {
+  const createEmployee = async (emp) => {
     let msgType = "success";
-    let msgText = "Funcionário editado com sucesso.";
+    let msgText = "Funcionário registrado com sucesso.";
 
     try {
       await api
-        .patch(`/employee/edit/${id}`, emp, {
+        .post(`/employee/create`, emp, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
           },
@@ -58,13 +42,13 @@ const EditEmployee = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editEmployee(employee);
+    createEmployee(employee);
   };
 
   //className={FormStyles.form_container}
   return (
     <>
-      <h2>Edite as informações do funcionário</h2>
+      <h2>Insira as informações do funcionário</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='name'>Nome do funcionário</label>
@@ -73,7 +57,6 @@ const EditEmployee = () => {
             type='text'
             name='name'
             placeholder='Nome'
-            value={employee.name}
             onChange={handleChange}
           />
         </div>
@@ -85,7 +68,6 @@ const EditEmployee = () => {
             type='email'
             name='email'
             placeholder='Email do funcionário'
-            value={employee.email}
             onChange={handleChange}
           />
         </div>
@@ -93,13 +75,12 @@ const EditEmployee = () => {
         <div>
           <label htmlFor='cpf'>CPF do funcionário</label>
           <input
-            disabled
             className='input'
             type='text'
             name='cpf'
             maxLength={11}
             placeholder='CPF do funcionário'
-            value={employee.cpf}
+            onChange={handleChange}
           />
         </div>
 
@@ -111,18 +92,17 @@ const EditEmployee = () => {
             name='role'
             placeholder='Função do funcionário'
             min={2}
-            value={employee.role}
             onChange={handleChange}
           />
         </div>
         <input
           // className={styles.btn_submit_form}
           type='submit'
-          value='Editar'
+          value='Criar'
         />
       </form>
     </>
   );
 };
 
-export default EditEmployee;
+export default CreateEmployee;

@@ -13,6 +13,7 @@ import Message from "./components/layouts/Message";
 import Login from "./components/Login";
 import EmploeeDetails from "./components/EmploeeDetails";
 import EditEmployee from "./components/EditEmployee";
+import CreateEmployee from "./components/CreateEmployee";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/edit/:id' element={<EditEmployee />} />
             <Route path='/employee/:id' element={<EmploeeDetails />} />
+            <Route path='/create' element={<CreateEmployee />} />
 
             <Route path='/teste' element={<Teste />} />
             <Route path='/register' element={<Register />} />
