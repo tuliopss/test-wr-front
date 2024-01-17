@@ -14,6 +14,7 @@ import Login from "./components/pages/Login";
 import EmploeeDetails from "./components/pages/EmploeeDetails";
 import EditEmployee from "./components/pages/EditEmployee";
 import CreateEmployee from "./components/pages/CreateEmployee";
+import Footer from "./components/layouts/Footer";
 
 function App() {
   const { authenticated } = useContext(Context);
@@ -71,6 +72,7 @@ function App() {
           </Routes>
         </Container>
       </BrowserRouter>
+      <Footer />
     </UserProvider>
   );
 }

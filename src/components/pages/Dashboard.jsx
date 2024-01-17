@@ -74,23 +74,35 @@ const Dashboard = () => {
         {employees.length > 0 &&
           employees.map((emp) => (
             <div className={styles.emp_card} key={emp._id}>
-              <h3>Nome:</h3>
-              <h3>Função:</h3>
-              <div className={styles.emp_info}>
-                <span>{emp.name}</span> - <span>{emp.role}</span>
+              <div>
+                <h3>Nome:</h3>
+                <div className={styles.emp_info}>
+                  <span>{emp.name}</span>
+                </div>
+              </div>
+              <div>
+                <h3>Função:</h3>
+                <div className={styles.emp_info}>
+                  <span>{emp.role}</span>
+                </div>
               </div>
 
               {currentUser.permission && (
                 <div className={styles.actions}>
-                  <Link to={`/edit/${emp._id}`}>Editar</Link>
+                  <Link to={`/edit/${emp._id}`}>
+                    <button className={styles.btn_edit}>Editar</button>
+                  </Link>
 
                   <button
+                    className={styles.btn_delete}
                     onClick={() => {
                       deleteEmployee(emp._id);
                     }}>
                     Excluir
                   </button>
-                  <Link to={`/employee/${emp._id}`}>Ver mais</Link>
+                  <Link to={`/employee/${emp._id}`}>
+                    <button className={styles.btn_details}>Ver mais</button>
+                  </Link>
                 </div>
               )}
             </div>

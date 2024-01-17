@@ -9,6 +9,11 @@
   display: flex;
   align-items: center;
 }
+.navbar_logo a h2 {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+}
 
 .navbar ul {
   display: flex;

@@ -48,3 +48,54 @@
   width: 100%;
   justify-content: space-between;
 }
+
+.emp_card h3 {
+  margin: 1em;
+}
+
+.actions a {
+  margin: 0.5em;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.btn_edit {
+  text-decoration: none;
+  background-color: #ffff00;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+  border: 1px solid #ffff00;
+  height: 3em;
+}
+
+.btn_delete {
+  text-decoration: none;
+  background-color: #ca2121;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+  border: 1px solid #ca2121;
+  height: 3em;
+}
+.btn_details {
+  text-decoration: none;
+  background-color: #16479d;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+  border: 1px solid #16479d;
+  height: 3em;
+}
