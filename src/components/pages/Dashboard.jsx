@@ -67,13 +67,17 @@ const Dashboard = () => {
     <>
       <header className={styles.dashboard_header}>
         <h2>Funcionários registrados</h2>
-        <Link to='/create'>Registrar novo funcionário</Link>
+        {currentUser.permission && (
+          <Link to='/create'>Registrar novo funcionário</Link>
+        )}
       </header>
 
       <div className={styles.employees_container}>
         {employees.length > 0 &&
           employees.map((emp) => (
-            <div className={styles.emp_card} key={emp._id}>
+            <div
+              className={emp.permission ? styles.emp_card_adm : styles.emp_card}
+              key={emp._id}>
               <div>
                 <h3>Nome:</h3>
                 <div className={styles.emp_info}>
@@ -108,6 +112,7 @@ const Dashboard = () => {
             </div>
           ))}
         {employees.length == 0 && <p>Sem funcionários cadastrados.</p>}
+        <span>* Funcionários com fundo dourado são ADMs</span>
       </div>
     </>
   );

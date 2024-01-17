@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import "./App.css";
 import Container from "./components/layouts/Container";
+import { io } from "socket.io-client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/layouts/Navbar";
 import Teste from "./components/Teste";
@@ -15,11 +16,20 @@ import EmploeeDetails from "./components/pages/EmploeeDetails";
 import EditEmployee from "./components/pages/EditEmployee";
 import CreateEmployee from "./components/pages/CreateEmployee";
 import Footer from "./components/layouts/Footer";
+import Profile from "./components/pages/Profile";
 
 function App() {
   const { authenticated } = useContext(Context);
   const [authenticatedState] = useState(authenticated);
 
+  // useEffect(() => {
+  //   const socket = io.connect("http://localhost:3000");
+  //   console.log("front", socket);
+
+  //   socket.on("connection", () => {
+  //     console.log("on");
+  //   });
+  // }, []);
   // console.log(authenticated, "a");
   return (
     <UserProvider>
@@ -53,6 +63,11 @@ function App() {
               element={
                 authenticated ? <CreateEmployee /> : <Navigate to='/login' />
               }
+            />
+
+            <Route
+              path='/profile'
+              element={authenticated ? <Profile /> : <Navigate to='/login' />}
             />
 
             {/* ) : ( */}
