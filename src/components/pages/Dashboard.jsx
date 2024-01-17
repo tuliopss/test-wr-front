@@ -7,6 +7,20 @@ const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
   const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
+  const [currentUser, setCurrentUser] = useState({});
+
+  const getCurrentUser = async () => {
+    await api
+      .get("/employee/getProfile", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setCurrentUser(response.data);
+        console.log(response.data);
+      });
+  };
 
   const getEmployees = async () => {
     await api
@@ -47,6 +61,7 @@ const Dashboard = () => {
   useEffect(() => {
     // getEmployees();
     getEmployees();
+    getCurrentUser();
   }, [token]);
   return (
     <>
@@ -65,7 +80,7 @@ const Dashboard = () => {
                 <span>{emp.name}</span> - <span>{emp.role}</span>
               </div>
 
-              {emp.permission && (
+              {currentUser.permission && (
                 <div className={styles.actions}>
                   <Link to={`/edit/${emp._id}`}>Editar</Link>
 
