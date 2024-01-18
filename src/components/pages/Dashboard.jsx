@@ -40,7 +40,7 @@ const Dashboard = () => {
 
     try {
       const data = await api
-        .delete(`/employee/${id}`, {
+        .delete(`/employee/delete/${id}`, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
           },
