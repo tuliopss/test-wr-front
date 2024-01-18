@@ -45,7 +45,6 @@ const CreateEmployee = () => {
     createEmployee(employee);
   };
 
-  //className={FormStyles.form_container}
   return (
     <>
       <h2>Insira as informações do funcionário</h2>

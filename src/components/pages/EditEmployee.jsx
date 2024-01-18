@@ -8,10 +8,13 @@ import useFlashMessage from "../../hooks/useFlashMessage";
 const EditEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState({});
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [email, setEmail] = useState("");
+
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
   const [token] = useState(localStorage.getItem("token") || "");
-
   const getEmployee = async () => {
     await api
       .get(`/employee/${id}`, {
@@ -21,12 +24,13 @@ const EditEmployee = () => {
       })
       .then((response) => {
         setEmployee(response.data);
+        console.log(employee);
       });
   };
 
   useEffect(() => {
     getEmployee();
-  }, [token, id]);
+  }, [id]);
 
   const editEmployee = async (emp) => {
     let msgType = "success";
@@ -40,6 +44,7 @@ const EditEmployee = () => {
           },
         })
         .then((response) => {
+          console.log(response.data);
           return response.data;
         });
       setFlashMessage(msgText, msgType);
@@ -54,6 +59,7 @@ const EditEmployee = () => {
 
   const handleChange = (e) => {
     setEmployee({ ...employee, [e.target.name]: e.target.value });
+    console.log(employee);
   };
 
   const handleSubmit = (e) => {
@@ -61,7 +67,6 @@ const EditEmployee = () => {
     editEmployee(employee);
   };
 
-  //className={FormStyles.form_container}
   return (
     <>
       <h2>Edite as informações do funcionário</h2>
@@ -115,12 +120,61 @@ const EditEmployee = () => {
             onChange={handleChange}
           />
         </div>
+        <input type='submit' value='Editar' />
+      </form>
+      {/* <form onSubmit={handleSubmit} className={styles.form_container}>
+        <div className={styles.form_control}>
+          <label htmlFor='name'>Nome do funcionário</label>
+          <input
+            className='input'
+            type='text'
+            name='name'
+            placeholder='Nome'
+            onChange={handleChange}
+            // value={employee.name}
+          />
+        </div>
+
+        <div className={styles.form_control}>
+          <label htmlFor='email'>Email do funcionário</label>
+          <input
+            className='input'
+            type='email'
+            name='email'
+            placeholder='Email do funcionário'
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.form_control}>
+          <label htmlFor='cpf'>CPF do funcionário</label>
+          <input
+            className='input'
+            type='text'
+            name='cpf'
+            maxLength={11}
+            placeholder='CPF do funcionário'
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.form_control}>
+          <label htmlFor='role'>Função do funcionário</label>
+          <input
+            className='input'
+            type='text'
+            name='role'
+            placeholder='Função do funcionário'
+            min={2}
+            onChange={handleChange}
+          />
+        </div>
         <input
           // className={styles.btn_submit_form}
           type='submit'
           value='Editar'
         />
-      </form>
+      </form> */}
     </>
   );
 };

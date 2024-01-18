@@ -20,7 +20,6 @@ import Profile from "./components/pages/Profile";
 
 function App() {
   const { authenticated } = useContext(Context);
-  const [authenticatedState] = useState(authenticated);
 
   // useEffect(() => {
   //   const socket = io.connect("http://localhost:3000");
@@ -37,10 +36,7 @@ function App() {
         <Navbar />
         <Message />
         <Container>
-          {/* <h1>APP</h1> */}
           <Routes>
-            {/* {authenticated ? ( */}
-
             <Route
               path='/dashboard'
               element={authenticated ? <Dashboard /> : <Navigate to='/login' />}

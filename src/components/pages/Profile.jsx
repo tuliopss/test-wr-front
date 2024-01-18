@@ -27,11 +27,11 @@ const Profile = () => {
 
   const editEmployee = async (emp) => {
     let msgType = "success";
-    let msgText = "Funcionário editado com sucesso.";
+    let msgText = "Senha alterada com sucesso.";
 
     try {
       await api
-        .patch(`/employee/edit/${emp._id}`, emp, {
+        .patch(`/employee/changePassword/${emp._id}`, emp, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
           },
